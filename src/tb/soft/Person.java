@@ -77,6 +77,7 @@ public class Person {
 	public Person(String first_name, String last_name) throws PersonException {
 		setFirstName(first_name);
 		setLastName(last_name);
+
 		job = PersonJob.UNKNOWN;
 	}
 
@@ -87,6 +88,7 @@ public class Person {
 	public void setFirstName(String first_name) throws PersonException {
 		if ((first_name == null) || first_name.equals(""))
 			throw new PersonException("Pole <Imię> musi być wypełnione.");
+
 		this.firstName = first_name;
 	}
 
@@ -97,6 +99,7 @@ public class Person {
 	public void setLastName(String last_name) throws PersonException {
 		if ((last_name == null) || last_name.equals(""))
 			throw new PersonException("Pole <Nazwisko> musi być wypełnione.");
+
 		this.lastName = last_name;
 	}
 
@@ -107,14 +110,17 @@ public class Person {
 	public void setBirthYear(int birth_year) throws PersonException {
 		if ((birth_year != 0) && (birth_year < 1900 || birth_year > 2030))
 			throw new PersonException("Rok urodzenia musi być w przedziale [1900 - 2030].");
+
 		this.birthYear = birth_year;
 	}
 
 	public void setBirthYear(String birth_year) throws PersonException {
 		if (birth_year == null || birth_year.equals("")) { // pusty łańcuch znaków oznacza rok niezdefiniowany
 			setBirthYear(0);
+
 			return;
 		}
+
 		try {
 			setBirthYear(Integer.parseInt(birth_year));
 		} catch (NumberFormatException e) {
@@ -133,14 +139,18 @@ public class Person {
 	public void setJob(String job_name) throws PersonException {
 		if (job_name == null || job_name.equals("")) { // pusty łańcuch znaków oznacza stanowisko niezdefiniowane
 			this.job = PersonJob.UNKNOWN;
+
 			return;
 		}
+
 		for (PersonJob job : PersonJob.values()) {
 			if (job.jobName.equals(job_name)) {
 				this.job = job;
+				
 				return;
 			}
 		}
+
 		throw new PersonException("Nie ma takiego stanowiska.");
 	}
 
@@ -166,8 +176,10 @@ public class Person {
 			String line = reader.readLine();
 			String[] txt = line.split("#");
 			Person person = new Person(txt[0], txt[1]);
+			
 			person.setBirthYear(txt[2]);
 			person.setJob(txt[3]);
+			
 			return person;
 		} catch (IOException e) {
 			throw new PersonException("Wystąpił błąd podczas odczytu danych z pliku.");
