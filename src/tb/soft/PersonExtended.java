@@ -26,7 +26,10 @@ public class PersonExtended extends Person {
 		if (getFirstName() != null ? !getFirstName().equals(person.getFirstName()) : person.getFirstName() != null)
 			return false;
 
-		return getLastName().equals(person.getLastName());
+		if (getLastName() != null ? !getLastName().equals(person.getLastName()) : person.getLastName() != null)
+			return false;
+
+		return getJob().equals(person.getJob());
 	}
 
 	@Override
