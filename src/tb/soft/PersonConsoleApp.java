@@ -33,6 +33,13 @@ public class PersonConsoleApp {
 	        "3 - Rok urodzenia  \n" + 
 			"4 - Stanowisko     \n" +
 	        "0 - Powrót do menu głównego\n";
+	private static final String COLLECTION_ADD_MENU =
+			"   Jakiej kolekcji użyć?     \n" +
+			"1 - TreeSet           		  \n" +
+			"2 - HashSet	       		  \n" +
+			"3 - ArrayList		  		  \n" +
+			"4 - LinkedList     		  \n" +
+			"0 - Powrót do menu głównego  \n";
 
 	
 	/**
@@ -64,7 +71,7 @@ public class PersonConsoleApp {
 	 *         działania za pomocą metody System.exit(0); 
 	 */
 	public void runMainLoop() {
-		UI.printMessage(GREETING_MESSAGE);
+		UI.printInfoMessage(GREETING_MESSAGE);
 
 		while (true) {
 			UI.clearConsole();
@@ -75,6 +82,18 @@ public class PersonConsoleApp {
 				case 1:
 					// utworzenie nowej osoby
 					currentPerson = createNewPerson();
+					switch (UI.enterInt(COLLECTION_ADD_MENU + "==>> ")){
+						case 1:
+							PersonsCollections.TreeSetPersons.add(currentPerson);
+						case 2:
+							PersonsCollections.HashSetPersons.add(currentPerson);
+						case 3:
+							PersonsCollections.ArrayListPersons.add(currentPerson);
+						case 4:
+							PersonsCollections.LinkedListPersons.add(currentPerson);
+						case 0:
+							;
+					}
 					break;
 				case 2:
 					// usunięcie danych aktualnej osoby.
@@ -141,7 +160,7 @@ public class PersonConsoleApp {
 			  .append("Stanowisko: ").append(person.getJob()).append("\n");
 		} else
 			sb.append( "Brak danych osoby\n" );
-		UI.printMessage( sb.toString() );
+		UI.printInfoMessage( sb.toString() );
 	}
 
 	

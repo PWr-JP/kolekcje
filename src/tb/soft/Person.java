@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.*;
 
 
 /*
@@ -79,8 +80,7 @@ class PersonException extends Exception {
  * niedozwolonej wartości, któremuś z atrybutów jest zgłaszany wyjątek
  * zawierający stosowny komunikat.
  */
-public class Person {
-	
+public class Person implements Comparable<Person> {
 	private String firstName;
 	private String lastName;
 	private int birthYear;
@@ -92,6 +92,60 @@ public class Person {
 		setLastName(last_name);
 		job = PersonJob.UNKNOWN;
 	}
+	@Override
+	public int compareTo(Person p) {
+		return firstName.compareTo(p.getFirstName());
+	}
+
+
+	public static Comparator<Person> FirstNameComparator = new Comparator<Person>() {
+		@Override
+		public int compare(Person p1, Person p2) {
+			return p1.getFirstName().compareTo(p2.getFirstName());
+		}
+	};
+
+
+	public static Comparator<Person> LastNameComparator = new Comparator<Person>() {
+		@Override
+		public int compare(Person p1, Person p2) {
+			return p1.getLastName().compareTo(p2.getLastName());
+		}
+	};
+
+
+	public static Comparator<Person> AgeComparator = new Comparator<Person>() {
+		@Override
+		public int compare(Person p1, Person p2) {
+			return p2.getBirthYear() - p1.getBirthYear();
+		}
+	};
+
+	public static Comparator<Person> JobComparator = new Comparator<Person>() {
+		@Override
+		public int compare(Person p1, Person p2) {
+			return JobParser(p1.getJob()) - JobParser(p2.getJob());
+		}
+
+		public int JobParser(PersonJob job){
+			switch(job){
+				case UNKNOWN:
+					return 0;
+				case GUEST:
+					return 1;
+				case STUDENT:
+					return 2;
+				case TEACHER:
+					return 3;
+				case MANAGER:
+					return 4;
+				case DIRECTOR:
+					return 5;
+			}
+			return 0;
+		}
+	};
+
 
 	
 	public String getFirstName() {
@@ -141,7 +195,7 @@ public class Person {
 			throw new PersonException("Rok urodzenia musi być liczbą całkowitą.");
 		}
 	}
-
+	
 
 	public PersonJob getJob() {
 		return job;
@@ -170,7 +224,7 @@ public class Person {
 	
 	@Override
 	public String toString() {  
-		return firstName + " " + lastName;
+		return firstName + " " + lastName + " " + birthYear + " " + getJob();
 	}
 	
 	

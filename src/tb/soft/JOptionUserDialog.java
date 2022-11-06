@@ -5,7 +5,11 @@ import javax.swing.*;
 public class JOptionUserDialog extends ConsoleUserDialog{
     @Override
     public void printMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.PLAIN_MESSAGE);
+        JTextArea textArea = new JTextArea(message);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        JOptionPane.showMessageDialog(null, scrollPane, "Message", JOptionPane.PLAIN_MESSAGE);
     }
 
     @Override
