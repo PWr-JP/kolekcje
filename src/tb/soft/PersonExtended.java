@@ -32,7 +32,7 @@ public class PersonExtended extends Person {
 	@Override
 	public int hashCode() {
 		int result = getFirstName() != null ? getFirstName().hashCode() : 0;
-		
+
 		result = 31 * result + getLastName().hashCode();
 		result = 31 * result + getBirthYear();
 		result = 31 * result + getJob().hashCode();

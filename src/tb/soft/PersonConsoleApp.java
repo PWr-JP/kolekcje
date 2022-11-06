@@ -47,6 +47,7 @@ public class PersonConsoleApp {
 		// Utworzenie obiektu aplikacji konsolowej
 		// oraz uruchomienie głównej pętli aplikacji.
 		PersonConsoleApp application = new PersonConsoleApp();
+		
 		application.runMainLoop();
 	} 
 
@@ -89,14 +90,18 @@ public class PersonConsoleApp {
 				case 4: {
 					// odczyt danych z pliku tekstowego.
 					String file_name = UI.enterString("Podaj nazwę pliku: ");
+					
 					currentPerson = Person.readFromFile(file_name);
+					
 					UI.printInfoMessage("Dane aktualnej osoby zostały wczytane z pliku " + file_name);
 				}
 					break;
 				case 5: {
 					// zapis danych aktualnej osoby do pliku tekstowego 
 					String file_name = UI.enterString("Podaj nazwę pliku: ");
+					
 					Person.printToFile(file_name, currentPerson);
+					
 					UI.printInfoMessage("Dane aktualnej osoby zostały zapisane do pliku " + file_name);
 				}
 
@@ -104,6 +109,7 @@ public class PersonConsoleApp {
 				case 0:
 					// zakończenie działania programu
 					UI.printInfoMessage("\nProgram zakończył działanie!");
+					
 					System.exit(0);
 				} // koniec instrukcji switch
 			} catch (PersonException e) { 
@@ -141,6 +147,7 @@ public class PersonConsoleApp {
 			  .append("Stanowisko: ").append(person.getJob()).append("\n");
 		} else
 			sb.append( "Brak danych osoby\n" );
+		
 		UI.printMessage( sb.toString() );
 	}
 
@@ -156,13 +163,18 @@ public class PersonConsoleApp {
 		String first_name = UI.enterString("Podaj imię: ");
 		String last_name = UI.enterString("Podaj nazwisko: ");
 		String birth_year = UI.enterString("Podaj rok ur.: ");
+		
 		UI.printMessage("Dozwolone stanowiska:" + Arrays.deepToString(PersonJob.values()));
+		
 		String job_name = UI.enterString("Podaj stanowisko: ");
+		
 		Person person;
+		
 		try { 
 			// Utworzenie nowego obiektu klasy Person oraz
 			// ustawienie wartości wszystkich atrybutów.
 			person = new Person(first_name, last_name);
+			
 			person.setBirthYear(birth_year);
 			person.setJob(job_name);
 		} catch (PersonException e) {    
@@ -171,8 +183,10 @@ public class PersonConsoleApp {
 			// poszczególnych atrybutów.
 			// Drukowanie komunikatu o błędzie zgłoszonym za pomocą wyjątku PersonException.
 			UI.printErrorMessage(e.getMessage());
+			
 			return null;
 		}
+		
 		return person;
 	}
 	
@@ -203,7 +217,9 @@ public class PersonConsoleApp {
 					break;
 				case 4:
 					UI.printMessage("Dozwolone stanowiska:" + Arrays.deepToString(PersonJob.values()));
+					
 					person.setJob(UI.enterString("Podaj stanowisko: "));
+					
 					break;
 				case 0: return;
 				}  // koniec instrukcji switch
