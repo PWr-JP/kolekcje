@@ -18,13 +18,13 @@ public class PersonConsoleApp {
 			"Data:  październik 2018 r.\n";
 
 	private static final String MENU = 
-			"    M E N U   G Ł Ó W N E  \n" +
-			"1 - Podaj dane nowej osoby \n" +
-			"2 - Usuń dane osoby        \n" +
-			"3 - Modyfikuj dane osoby   \n" +
-			"4 - Wczytaj dane z pliku   \n" +
-			"5 - Zapisz dane do pliku   \n" +
-			"0 - Zakończ program        \n";	
+			"    M E N U   G Ł Ó W N E  		\n" +
+			"1 - Podaj dane nowej osoby 		\n" +
+			"2 - Usuń dane osoby        		\n" +
+			"3 - Wypisz dane osób z kolekcji    \n" +
+			"4 - Wczytaj dane z pliku   		\n" +
+			"5 - Zapisz dane do pliku   		\n" +
+			"0 - Zakończ program        		\n";
 	
 	private static final String CHANGE_MENU = 
 			"   Co zmienić?     \n" + 
@@ -78,21 +78,27 @@ public class PersonConsoleApp {
 			showCurrentPerson();
 
 			try {
-				switch (UI.enterInt(MENU + "==>> ")) {
+				int temp = UI.enterInt(MENU + "==>> ");
+				switch (temp) {
 				case 1:
 					// utworzenie nowej osoby
 					currentPerson = createNewPerson();
-					switch (UI.enterInt(COLLECTION_ADD_MENU + "==>> ")){
+					temp = UI.enterInt(COLLECTION_ADD_MENU + "==>> ");
+					switch (temp){
 						case 1:
 							PersonsCollections.TreeSetPersons.add(currentPerson);
+							break;
 						case 2:
 							PersonsCollections.HashSetPersons.add(currentPerson);
+							break;
 						case 3:
 							PersonsCollections.ArrayListPersons.add(currentPerson);
+							break;
 						case 4:
 							PersonsCollections.LinkedListPersons.add(currentPerson);
+							break;
 						case 0:
-							;
+							break;
 					}
 					break;
 				case 2:
@@ -102,8 +108,22 @@ public class PersonConsoleApp {
 					break;
 				case 3:
 					// zmiana danych dla aktualnej osoby
-					if (currentPerson == null) throw new PersonException("Żadna osoba nie została utworzona.");
-					changePersonData(currentPerson);
+					switch (UI.enterInt(COLLECTION_ADD_MENU + "==>> ")){
+						case 1:
+							UI.printMessage(PersonsCollections.showTreeSet());
+							break;
+						case 2:
+							UI.printMessage(PersonsCollections.showHashSet());
+							break;
+						case 3:
+							UI.printMessage(PersonsCollections.showArrayList());
+							break;
+						case 4:
+							UI.printMessage(PersonsCollections.showLinkedList());
+							break;
+						case 0:
+							break;
+					}
 					break;
 				case 4: {
 					// odczyt danych z pliku tekstowego.

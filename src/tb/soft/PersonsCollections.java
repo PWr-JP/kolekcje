@@ -12,4 +12,34 @@ public class PersonsCollections {
     static LinkedList<Person> LinkedListPersons = new LinkedList<>();
     static ArrayList<Person> ArrayListPersons = new ArrayList<>();
 
+
+    static String showTreeSet(){
+        StringBuilder sb = new StringBuilder();
+        for(Person p:TreeSetPersons){
+            sb.append(p.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    static String showHashSet(){
+        StringBuilder sb= new StringBuilder();
+        for(Person p:HashSetPersons){
+            sb.append(p.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    static String showArrayList(){
+        StringBuilder sb= new StringBuilder();
+        for(Person p:ArrayListPersons){
+            sb.append(p.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    static String showLinkedList(){
+        StringBuilder sb= new StringBuilder();
+        for(Person p:LinkedListPersons){
+            sb.append(p.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
 }
