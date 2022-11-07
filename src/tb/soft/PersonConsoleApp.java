@@ -48,11 +48,10 @@ public class PersonConsoleApp {
 
 	private static final String COLLECTION_SORT_MENU =
 			"   Jakiego sortowania użyć?  \n" +
-			"1 - Domyślne          		  \n" +
-			"2 - Po imieniu	       		  \n" +
-			"3 - Po nazwisku	  		  \n" +
-			"4 - Po wieku	     		  \n" +
-			"5 - Po zawodzie     		  \n" +
+			"1 - Po imieniu	       		  \n" +
+			"2 - Po nazwisku	  		  \n" +
+			"3 - Po wieku	     		  \n" +
+			"4 - Po zawodzie     		  \n" +
 			"0 - Powrót do menu głównego  \n";
 
 
@@ -200,7 +199,7 @@ public class PersonConsoleApp {
 					}
 					break;
 				case 3:
-					// zmiana danych dla aktualnej osoby
+					// wyświetlenie danych z wybranej kolekcji
 					switch (UI.enterInt(COLLECTION_ADD_MENU + "==>> ")){
 						case 1:
 							UI.printMessage(PersonsCollections.showTreeSet());
@@ -209,9 +208,43 @@ public class PersonConsoleApp {
 							UI.printMessage(PersonsCollections.showHashSet());
 							break;
 						case 3:
+							switch(UI.enterInt(COLLECTION_SORT_MENU+ "==>> ")){
+								case 1:
+									PersonsCollections.ArrayListPersons.sort(new FirstNameComparator());
+									break;
+								case 2:
+									PersonsCollections.ArrayListPersons.sort(new LastNameComparator());
+									break;
+								case 3:
+									PersonsCollections.ArrayListPersons.sort(new AgeComparator());
+									break;
+								case 4:
+									PersonsCollections.ArrayListPersons.sort(new JobComparator());
+									break;
+								case 0:
+									break;
+
+							}
 							UI.printMessage(PersonsCollections.showArrayList());
 							break;
 						case 4:
+							switch(UI.enterInt(COLLECTION_SORT_MENU+ "==>> ")){
+								case 1:
+									PersonsCollections.LinkedListPersons.sort(new FirstNameComparator());
+									break;
+								case 2:
+									PersonsCollections.LinkedListPersons.sort(new LastNameComparator());
+									break;
+								case 3:
+									PersonsCollections.LinkedListPersons.sort(new AgeComparator());
+									break;
+								case 4:
+									PersonsCollections.LinkedListPersons.sort(new JobComparator());
+									break;
+								case 0:
+									break;
+
+							}
 							UI.printMessage(PersonsCollections.showLinkedList());
 							break;
 						case 5:
@@ -220,10 +253,44 @@ public class PersonConsoleApp {
 						case 6:
 							UI.printMessage(PersonsCollections.showHashSetMod());
 							break;
-						case 7:
+						case 7:switch(UI.enterInt(COLLECTION_SORT_MENU+ "==>> ")){
+							case 1:
+								PersonsCollections.ArrayListPersonsMod.sort(new FirstNameComparator());
+								break;
+							case 2:
+								PersonsCollections.ArrayListPersonsMod.sort(new LastNameComparator());
+								break;
+							case 3:
+								PersonsCollections.ArrayListPersonsMod.sort(new AgeComparator());
+								break;
+							case 4:
+								PersonsCollections.ArrayListPersonsMod.sort(new JobComparator());
+								break;
+							case 0:
+								break;
+
+						}
+
 							UI.printMessage(PersonsCollections.showArrayListMod());
 							break;
 						case 8:
+							switch(UI.enterInt(COLLECTION_SORT_MENU+ "==>> ")){
+								case 1:
+									PersonsCollections.ArrayListPersonsMod.sort(new FirstNameComparator());
+									break;
+								case 2:
+									PersonsCollections.ArrayListPersonsMod.sort(new LastNameComparator());
+									break;
+								case 3:
+									PersonsCollections.ArrayListPersonsMod.sort(new AgeComparator());
+									break;
+								case 4:
+									PersonsCollections.ArrayListPersonsMod.sort(new JobComparator());
+									break;
+								case 0:
+									break;
+
+							}
 							UI.printMessage(PersonsCollections.showLinkedListMod());
 							break;
 						case 0:

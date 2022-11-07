@@ -98,53 +98,7 @@ public class Person implements Comparable<Person> {
 	}
 
 
-	public static Comparator<Person> FirstNameComparator = new Comparator<Person>() {
-		@Override
-		public int compare(Person p1, Person p2) {
-			return p1.getFirstName().compareTo(p2.getFirstName());
-		}
-	};
 
-
-	public static Comparator<Person> LastNameComparator = new Comparator<Person>() {
-		@Override
-		public int compare(Person p1, Person p2) {
-			return p1.getLastName().compareTo(p2.getLastName());
-		}
-	};
-
-
-	public static Comparator<Person> AgeComparator = new Comparator<Person>() {
-		@Override
-		public int compare(Person p1, Person p2) {
-			return p2.getBirthYear() - p1.getBirthYear();
-		}
-	};
-
-	public static Comparator<Person> JobComparator = new Comparator<Person>() {
-		@Override
-		public int compare(Person p1, Person p2) {
-			return JobParser(p1.getJob()) - JobParser(p2.getJob());
-		}
-
-		public int JobParser(PersonJob job){
-			switch(job){
-				case UNKNOWN:
-					return 0;
-				case GUEST:
-					return 1;
-				case STUDENT:
-					return 2;
-				case TEACHER:
-					return 3;
-				case MANAGER:
-					return 4;
-				case DIRECTOR:
-					return 5;
-			}
-			return 0;
-		}
-	};
 
 
 	
@@ -267,4 +221,52 @@ public class Person implements Comparable<Person> {
 		}	
 	}
 	
-}  // koniec klasy Person
+};  // koniec klasy Person
+
+class FirstNameComparator implements Comparator<Person> {
+	@Override
+	public int compare(Person p1, Person p2) {
+		return p1.getFirstName().compareTo(p2.getFirstName());
+	}
+};
+
+
+class LastNameComparator implements Comparator<Person> {
+	@Override
+	public int compare(Person p1, Person p2) {
+		return p1.getLastName().compareTo(p2.getLastName());
+	}
+};
+
+
+class AgeComparator implements Comparator<Person> {
+	@Override
+	public int compare(Person p1, Person p2) {
+		return p2.getBirthYear() - p1.getBirthYear();
+	}
+};
+
+class JobComparator implements Comparator<Person> {
+	@Override
+	public int compare(Person p1, Person p2) {
+		return JobParser(p1.getJob()) - JobParser(p2.getJob());
+	}
+
+	public int JobParser(PersonJob job){
+		switch(job){
+			case UNKNOWN:
+				return 0;
+			case GUEST:
+				return 1;
+			case STUDENT:
+				return 2;
+			case TEACHER:
+				return 3;
+			case MANAGER:
+				return 4;
+			case DIRECTOR:
+				return 5;
+		}
+		return 0;
+	}
+};
