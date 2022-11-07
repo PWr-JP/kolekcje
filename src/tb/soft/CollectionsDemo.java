@@ -3,12 +3,12 @@ package tb.soft;
 import java.util.*;
 
 public class CollectionsDemo {
-    public final Set<Integer> hashSet = new HashSet<Integer>();
-    public final Set<Integer> treeSet = new TreeSet<Integer>();
+    public final Set<Person> hashSet = new HashSet<Person>();
+    public final Set<Person> treeSet = new TreeSet<Person>();
 
-    public final List<Integer> arrayList = new ArrayList<Integer>();
-    public final List<Integer> linkedList = new LinkedList<Integer>();
+    public final List<Person> arrayList = new ArrayList<Person>();
+    public final List<Person> linkedList = new LinkedList<Person>();
 
-    public final Map<Integer, Integer> hashMap = new HashMap<Integer, Integer>();
-    public final Map<Integer, Integer> treeMap = new TreeMap<Integer, Integer>();
+    public final Map<Integer, Person> hashMap = new HashMap<Integer, Person>();
+    public final Map<Integer, Person> treeMap = new TreeMap<Integer, Person>();
 }

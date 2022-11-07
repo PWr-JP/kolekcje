@@ -185,15 +185,15 @@ public class PersonConsoleApp {
 		}
 	}
 
-	void handleCollection(Collection<Integer> collection, Integer option) {
+	void handleCollection(Collection<Person> collection, Integer option) {
 		switch (option)
 		{
 			case 1:
-				collection.add(UI.enterInt(ADD_MESSAGE));
+				collection.add(createNewPerson());
 				break;
 
 			case 2:
-				collection.remove(UI.enterInt(REMOVE_MESSAGE));
+				collection.remove(createNewPerson());
 				break;
 
 			case 3:
@@ -217,13 +217,13 @@ public class PersonConsoleApp {
 		chooseCollection();
 	}
 
-	void handleMap(Map<Integer, Integer> map, Integer option) {
+	void handleMap(Map<Integer, Person> map, Integer option) {
 		Integer key;
 		switch (option)
 		{
 			case 1:
 				key = UI.enterInt(KEY_MESSAGE);
-				map.put(key, UI.enterInt(ADD_MESSAGE));
+				map.put(key, createNewPerson());
 				break;
 
 			case 2:
