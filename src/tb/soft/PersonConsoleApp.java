@@ -1,6 +1,9 @@
 package tb.soft;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Program: Aplikacja działająca w oknie konsoli, która umożliwia testowanie 
@@ -24,24 +27,49 @@ public class PersonConsoleApp {
 			"3 - Modyfikuj dane osoby   \n" +
 			"4 - Wczytaj dane z pliku   \n" +
 			"5 - Zapisz dane do pliku   \n" +
-			"0 - Zakończ program        \n";	
+			"6 - Demo kolekcji			\n" +
+			"0 - Zakończ program        \n";
 	
 	private static final String CHANGE_MENU = 
 			"   Co zmienić?     \n" + 
 	        "1 - Imię           \n" + 
 			"2 - Nazwisko       \n" + 
 	        "3 - Rok urodzenia  \n" + 
-			"4 - Stanowisko     \n" +
-	        "0 - Powrót do menu głównego\n";
+			"4 - Stanowisko     \n";
 
-	
+	private static final String COLLECTION_MENU =
+			"   Wybierz rodzaj kolekcji:	\n" +
+			"1 - HashSet					\n" +
+			"2 - TreeSet					\n" +
+			"3 - ArrayList					\n" +
+			"4 - LinkedList					\n" +
+			"5 - HashMap					\n" +
+			"6 - TreeMap					\n" +
+			"0 - Powrót do menu głównego	\n";
+
+	private static final String COLLECTION_OPERATION_MENU =
+			"   Wybierz rodzaj operacji na kolekcji:\n" +
+			"1 - Dodaj								\n" +
+			"2 - Usuń								\n" +
+			"3 - Wyświetl							\n" +
+			"4 - Iteruj 							\n";
+
+	private static final String ADD_MESSAGE =
+			"Podaj liczbę do dodania";
+
+	private static final String REMOVE_MESSAGE =
+			"Podaj liczbę do usunięcia";
+
+	private static final String KEY_MESSAGE =
+			"Podaj klucz elementu na którym zostanie wykonana operacja";
+
 	/**
 	 * ConsoleUserDialog to pomocnicza klasa zawierająca zestaw
 	 * prostych metod do realizacji dialogu z użytkownikiem
 	 * w oknie konsoli tekstowej.
 	 */
 	private static final ConsoleUserDialog UI = new JOptionUserDialog();
-	
+	private final CollectionsDemo collectionsDemo = new CollectionsDemo();
 	
 	public static void main(String[] args) {
 		// Utworzenie obiektu aplikacji konsolowej
@@ -99,7 +127,9 @@ public class PersonConsoleApp {
 					Person.printToFile(file_name, currentPerson);
 					UI.printInfoMessage("Dane aktualnej osoby zostały zapisane do pliku " + file_name);
 				}
-
+				case 6: {
+					chooseCollection();
+				}
 					break;
 				case 0:
 					// zakończenie działania programu
@@ -115,7 +145,111 @@ public class PersonConsoleApp {
 			}
 		} // koniec pętli while
 	}
-	
+
+	void chooseCollection() {
+		var pick = UI.enterInt(COLLECTION_MENU);
+
+		switch (pick) {
+			case 1:
+				handleCollection(collectionsDemo.hashSet, UI.enterInt(COLLECTION_OPERATION_MENU));
+
+				break;
+
+			case 2:
+				handleCollection(collectionsDemo.treeSet, UI.enterInt(COLLECTION_OPERATION_MENU));
+
+				break;
+
+			case 3:
+				handleCollection(collectionsDemo.arrayList, UI.enterInt(COLLECTION_OPERATION_MENU));
+
+				break;
+
+			case 4:
+				handleCollection(collectionsDemo.linkedList, UI.enterInt(COLLECTION_OPERATION_MENU));
+
+				break;
+
+			case 5:
+				handleMap(collectionsDemo.hashMap, UI.enterInt(COLLECTION_OPERATION_MENU));
+
+				break;
+
+			case 6:
+				handleMap(collectionsDemo.treeMap, UI.enterInt(COLLECTION_OPERATION_MENU));
+
+				break;
+
+			case 0:
+				break;
+		}
+	}
+
+	void handleCollection(Collection<Person> collection, Integer option) {
+		switch (option)
+		{
+			case 1:
+				collection.add(createNewPerson());
+				break;
+
+			case 2:
+				collection.remove(createNewPerson());
+				break;
+
+			case 3:
+				var allElements = collection.stream()
+						.map(Object::toString)
+						.collect(Collectors.joining(", "));
+
+				UI.printMessage(allElements.isEmpty() ? "Kolekcja nie zawiera elementów" : allElements);
+				break;
+
+			case 4:
+				StringBuilder stringBuilder = new StringBuilder();
+
+				collection.forEach(integer -> stringBuilder.append(String.format("%s ", integer)));
+
+				UI.printInfoMessage(stringBuilder.toString());
+
+				break;
+		}
+
+		chooseCollection();
+	}
+
+	void handleMap(Map<Integer, Person> map, Integer option) {
+		Integer key;
+		switch (option)
+		{
+			case 1:
+				key = UI.enterInt(KEY_MESSAGE);
+				map.put(key, createNewPerson());
+				break;
+
+			case 2:
+				map.remove(UI.enterInt(KEY_MESSAGE));
+				break;
+
+			case 3:
+				var allElements = map.entrySet().stream()
+						.map(element -> String.format("%s : %s", element.getKey(), element.getValue()))
+						.collect(Collectors.joining(", "));
+
+				UI.printMessage(allElements.isEmpty() ? "Kolekcja nie zawiera elementów" : allElements);
+				break;
+
+			case 4:
+				StringBuilder stringBuilder = new StringBuilder();
+
+				map.forEach((integer, integer2) -> stringBuilder.append(String.format("(%s : %s)", integer, integer2)));
+
+				UI.printInfoMessage(stringBuilder.toString());
+
+				break;
+		}
+
+		chooseCollection();
+	}
 	
 	/*
 	 *  Metoda wyświetla w oknie konsoli dane aktualnej osoby 

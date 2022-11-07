@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Objects;
 
 
 /*
@@ -79,7 +80,7 @@ class PersonException extends Exception {
  * niedozwolonej wartości, któremuś z atrybutów jest zgłaszany wyjątek
  * zawierający stosowny komunikat.
  */
-public class Person {
+public class Person implements Comparable {
 	
 	private String firstName;
 	private String lastName;
@@ -212,5 +213,17 @@ public class Person {
 			throw new PersonException("Wystąpił błąd podczas odczytu danych z pliku.");
 		}	
 	}
-	
+
+	@Override
+	public int compareTo(Object o) {
+		if (equals(o))
+			return 0;
+
+		Person person = (Person) o;
+
+		return Objects.equals(getFirstName(), person.getFirstName()) &&
+			   Objects.equals(getLastName(), person.getLastName()) &&
+			   getJob() == person.getJob() &&
+			   getBirthYear() == person.getBirthYear() ? 1 : 0;
+	}
 }  // koniec klasy Person
