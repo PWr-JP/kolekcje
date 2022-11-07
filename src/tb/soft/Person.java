@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Comparator;
 
 /*
  *  Program: Operacje na obiektach klasy Person
@@ -67,7 +68,7 @@ class PersonException extends Exception {
  * niedozwolonej wartości, któremuś z atrybutów jest zgłaszany wyjątek
  * zawierający stosowny komunikat.
  */
-public class Person implements Comparable {
+public class Person implements Comparable<Person> {
 
 	protected String firstName;
 	protected String lastName;
@@ -79,6 +80,14 @@ public class Person implements Comparable {
 		setLastName(last_name);
 
 		job = PersonJob.UNKNOWN;
+	}
+	
+	public Person(Person person) throws PersonException {
+		setFirstName(person.getFirstName());
+		setLastName(person.getLastName());
+		
+		birthYear = person.getBirthYear();
+		job = person.getJob();
 	}
 
 	public String getFirstName() {
@@ -197,11 +206,9 @@ public class Person implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object obj) {
-		if (equals(obj))
+	public int compareTo(Person person) {
+		if (equals(person))
 			return 0;
-
-		Person person = (Person) obj;
 
 		if (!getFirstName().equals(person.getFirstName()))
 			return getFirstName().compareTo(person.getFirstName());
@@ -215,4 +222,34 @@ public class Person implements Comparable {
 			return getJob().compareTo(person.getJob());
 	}
 
+
+	public static Comparator<Person> FirstNameComparator = new Comparator<Person>() {
+		@Override
+		public int compare(Person p1, Person p2) {
+			return p1.getFirstName().compareTo(p2.getFirstName());
+		}
+	};
+
+
+	public static Comparator<Person> LastNameComparator = new Comparator<Person>() {
+		@Override
+		public int compare(Person p1, Person p2) {
+			return p1.getLastName().compareTo(p2.getLastName());
+		}
+	};
+
+
+	public static Comparator<Person> AgeComparator = new Comparator<Person>() {
+		@Override
+		public int compare(Person p1, Person p2) {
+			return p2.getBirthYear() - p1.getBirthYear();
+		}
+	};
+
+	public static Comparator<Person> JobComparator = new Comparator<Person>() {
+		@Override
+		public int compare(Person p1, Person p2) {
+			return p1.getJob().ordinal() - p2.getJob().ordinal();
+		}
+	};
 } // koniec klasy Person
