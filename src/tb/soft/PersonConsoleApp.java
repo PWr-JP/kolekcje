@@ -18,13 +18,12 @@ public class PersonConsoleApp {
 			"Data:  październik 2018 r.\n";
 
 	private static final String MENU = 
-			"    M E N U   G Ł Ó W N E  		\n" +
-			"1 - Podaj dane nowej osoby 		\n" +
-			"2 - Usuń dane osoby        		\n" +
-			"3 - Wypisz dane osób z kolekcji    \n" +
-			"4 - Wczytaj dane z pliku   		\n" +
-			"5 - Zapisz dane do pliku   		\n" +
-			"0 - Zakończ program        		\n";
+			"    M E N U   G Ł Ó W N E  							  \n" +
+			"1 - Podaj dane nowej osoby 							  \n" +
+			"2 - Usuń dane osoby        							  \n" +
+			"3 - Wypisz dane osób z kolekcji    					  \n" +
+			"4 - Zaprezentuj działanie implementacji equals i hashcode\n" +
+			"0 - Zakończ program        							  \n";
 	
 	private static final String CHANGE_MENU = 
 			"   Co zmienić?     \n" + 
@@ -100,13 +99,12 @@ public class PersonConsoleApp {
 			showCurrentPerson();
 
 			try {
-				int temp = UI.enterInt(MENU + "==>> ");
-				switch (temp) {
+
+				switch (UI.enterInt(MENU + "==>> ")) {
 				case 1:
 					// utworzenie nowej osoby
 					currentPerson = createNewPerson();
-					temp = UI.enterInt(COLLECTION_ADD_MENU + "==>> ");
-					switch (temp){
+					switch (UI.enterInt(COLLECTION_ADD_MENU + "==>> ")){
 						case 1:
 							PersonsCollections.TreeSetPersons.add(currentPerson);
 							break;
@@ -298,19 +296,9 @@ public class PersonConsoleApp {
 					}
 					break;
 				case 4: {
-					// odczyt danych z pliku tekstowego.
-					String file_name = UI.enterString("Podaj nazwę pliku: ");
-					currentPerson = Person.readFromFile(file_name);
-					UI.printInfoMessage("Dane aktualnej osoby zostały wczytane z pliku " + file_name);
+					// różnica przy equals
+					ImplementationDiff();
 				}
-					break;
-				case 5: {
-					// zapis danych aktualnej osoby do pliku tekstowego 
-					String file_name = UI.enterString("Podaj nazwę pliku: ");
-					Person.printToFile(file_name, currentPerson);
-					UI.printInfoMessage("Dane aktualnej osoby zostały zapisane do pliku " + file_name);
-				}
-
 					break;
 				case 0:
 					// zakończenie działania programu
@@ -425,6 +413,28 @@ public class PersonConsoleApp {
 				// Drukowanie komunikatu o błędzie zgłoszonym za pomocą wyjątku PersonException.
 				UI.printErrorMessage(e.getMessage());
 			}
+		}
+	}
+	public void ImplementationDiff() throws PersonException {
+		if (currentPerson != null) {
+			PersonMod personmod = new PersonMod(currentPerson);
+			showCurrentPerson();
+			UI.printInfoMessage("hashCode bez implementacji: " + currentPerson.hashCode());
+			UI.printInfoMessage("hashCode z implementacją: " + personmod.hashCode());
+
+			Person clonedPerson = new Person(currentPerson.getFirstName(), currentPerson.getLastName());
+			clonedPerson.setBirthYear(currentPerson.getBirthYear());
+			clonedPerson.setJob(currentPerson.getJob());
+			PersonMod clonedPersonMod = new PersonMod(clonedPerson);
+
+			UI.printInfoMessage("Klon aktualnie wybranej osoby: ");
+			showPerson(clonedPerson);
+			UI.printInfoMessage("Wynik metody equals dla sklonowanych obiektów (bez nadpisania metod equals i hashcode):" + currentPerson.equals(clonedPerson));
+			UI.printInfoMessage("Wartości metody hashcode dla sklonownych obiektów (bez nadpisania metod equals i hashcode):" + currentPerson.hashCode() + " i " + clonedPerson.hashCode());
+			UI.printInfoMessage("Wynik metody equals dla sklonowanych obiektów (z własną implementacją):" + clonedPersonMod.equals(personmod));
+			UI.printInfoMessage("Wartości metody hashcode dla sklonownych obiektów (z własną implementacją):" + clonedPersonMod.hashCode() + " i " + personmod.hashCode());
+		}else{
+			UI.printInfoMessage("Brak danych osoby!");
 		}
 	}
 	
