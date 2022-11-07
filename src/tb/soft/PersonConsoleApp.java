@@ -39,7 +39,30 @@ public class PersonConsoleApp {
 			"2 - HashSet	       		  \n" +
 			"3 - ArrayList		  		  \n" +
 			"4 - LinkedList     		  \n" +
+			"5 - TreeSetMod     		  \n" +
+			"6 - HashSetMod     		  \n" +
+			"7 - ArrayListMod     		  \n" +
+			"8 - LinkedListMod     		  \n" +
 			"0 - Powrót do menu głównego  \n";
+
+
+	private static final String COLLECTION_SORT_MENU =
+			"   Jakiego sortowania użyć?  \n" +
+			"1 - Domyślne          		  \n" +
+			"2 - Po imieniu	       		  \n" +
+			"3 - Po nazwisku	  		  \n" +
+			"4 - Po wieku	     		  \n" +
+			"5 - Po zawodzie     		  \n" +
+			"0 - Powrót do menu głównego  \n";
+
+
+	private static final String SET_DELETE_MENU =
+			"   Jakiego usuwania użyć?	  			\n" +
+			"1 - Pierwszy element  		  			\n" +
+			"2 - Ostatni element   		  			\n" +
+			"3 - Po indeksie (konwersja na List)	\n" +
+			"0 - Powrót do menu głównego  \n";
+
 
 	
 	/**
@@ -97,14 +120,84 @@ public class PersonConsoleApp {
 						case 4:
 							PersonsCollections.LinkedListPersons.add(currentPerson);
 							break;
+						case 5:
+							PersonsCollections.TreeSetPersonsMod.add(new PersonMod(currentPerson));
+							break;
+						case 6:
+							PersonsCollections.HashSetPersonsMod.add(new PersonMod(currentPerson));
+							break;
+						case 7:
+							PersonsCollections.ArrayListPersonsMod.add(new PersonMod(currentPerson));
+							break;
+						case 8:
+							PersonsCollections.LinkedListPersonsMod.add(new PersonMod(currentPerson));
+							break;
 						case 0:
 							break;
 					}
 					break;
 				case 2:
 					// usunięcie danych aktualnej osoby.
-					currentPerson = null;
-					UI.printInfoMessage("Dane aktualnej osoby zostały usunięte");
+					switch (UI.enterInt(COLLECTION_ADD_MENU + "==>> ")){
+						case 1:
+							UI.printMessage(PersonsCollections.showTreeSet());
+							switch (UI.enterInt(SET_DELETE_MENU + "==>> ")){
+								case 1:
+									PersonsCollections.TreeSetPersons.pollFirst();
+									break;
+								case 2:
+									PersonsCollections.TreeSetPersons.pollLast();
+									break;
+								case 3:
+									PersonsCollections.removeFromTreeSetByIndex(UI.enterInt("Podaj indeks elementu który chcesz usunąć\n==>> "));
+									break;
+								case 0:
+									break;
+							}
+							break;
+						case 2:
+							UI.printMessage(PersonsCollections.showHashSet());
+							PersonsCollections.removeFromHashSetByIndex(UI.enterInt("Podaj indeks elementu który chcesz usunąć\n==>> "));
+							break;
+						case 3:
+							UI.printMessage(PersonsCollections.showArrayList());
+							PersonsCollections.ArrayListPersons.remove(UI.enterInt("Podaj indeks elementu który chcesz usunąć\n==>> "));
+							break;
+						case 4:
+							UI.printMessage(PersonsCollections.showLinkedList());
+							PersonsCollections.ArrayListPersons.remove(UI.enterInt("Podaj indeks elementu który chcesz usunąć\n==>> "));
+							break;
+						case 5:
+							UI.printMessage(PersonsCollections.showTreeSetMod());
+							switch (UI.enterInt(SET_DELETE_MENU + "==>> ")){
+								case 1:
+									PersonsCollections.TreeSetPersonsMod.pollFirst();
+									break;
+								case 2:
+									PersonsCollections.TreeSetPersonsMod.pollLast();
+									break;
+								case 3:
+									PersonsCollections.removeFromTreeSetModByIndex(UI.enterInt("Podaj indeks elementu który chcesz usunąć\n==>> "));
+									break;
+								case 0:
+									break;
+							}
+							break;
+						case 6:
+							UI.printMessage(PersonsCollections.showHashSetMod());
+							PersonsCollections.removeFromHashSetModByIndex(UI.enterInt("Podaj indeks elementu który chcesz usunąć\n==>> "));
+							break;
+						case 7:
+							UI.printMessage(PersonsCollections.showArrayListMod());
+							PersonsCollections.ArrayListPersonsMod.remove(UI.enterInt("Podaj indeks elementu który chcesz usunąć\n==>> "));
+							break;
+						case 8:
+							UI.printMessage(PersonsCollections.showLinkedListMod());
+							PersonsCollections.LinkedListPersonsMod.remove(UI.enterInt("Podaj indeks elementu który chcesz usunąć\n==>> "));
+							break;
+						case 0:
+							break;
+					}
 					break;
 				case 3:
 					// zmiana danych dla aktualnej osoby
@@ -120,6 +213,18 @@ public class PersonConsoleApp {
 							break;
 						case 4:
 							UI.printMessage(PersonsCollections.showLinkedList());
+							break;
+						case 5:
+							UI.printMessage(PersonsCollections.showTreeSetMod());
+							break;
+						case 6:
+							UI.printMessage(PersonsCollections.showHashSetMod());
+							break;
+						case 7:
+							UI.printMessage(PersonsCollections.showArrayListMod());
+							break;
+						case 8:
+							UI.printMessage(PersonsCollections.showLinkedListMod());
 							break;
 						case 0:
 							break;

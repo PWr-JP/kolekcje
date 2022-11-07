@@ -25,7 +25,7 @@ public class PersonsCollections {
 
     static String showTreeSetMod(){
         StringBuilder sb = new StringBuilder();
-        for(Person p:TreeSetPersonsMod){
+        for(PersonMod p:TreeSetPersonsMod){
             sb.append(p.toString()).append("\n");
         }
         return sb.toString();
@@ -43,7 +43,7 @@ public class PersonsCollections {
 
     static String showHashSetMod(){
         StringBuilder sb= new StringBuilder();
-        for(Person p:HashSetPersonsMod){
+        for(PersonMod p:HashSetPersonsMod){
             sb.append(p.toString()).append("\n");
         }
         return sb.toString();
@@ -61,7 +61,7 @@ public class PersonsCollections {
 
     static String showArrayListMod(){
         StringBuilder sb= new StringBuilder();
-        for(Person p:ArrayListPersonsMod){
+        for(PersonMod p:ArrayListPersonsMod){
             sb.append(p.toString()).append("\n");
         }
         return sb.toString();
@@ -79,7 +79,7 @@ public class PersonsCollections {
 
     static String showLinkedListMod(){
         StringBuilder sb= new StringBuilder();
-        for(Person p:LinkedListPersonsMod){
+        for(PersonMod p:LinkedListPersonsMod){
             sb.append(p.toString()).append("\n");
         }
         return sb.toString();
